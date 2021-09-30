@@ -1,7 +1,7 @@
 package test;
 
 public interface Menu {
-    void addRecipe(Recipe recipe);
+    void createRecipe(Recipe recipe);
 
     Menu exploreRecipes();
 

@@ -12,7 +12,7 @@ public class AllTests {
     void createRecipe(){
         Recipe recipe = new Recipe();
         Menu mainMenu = new MainMenu();
-        mainMenu.addRecipe(recipe);
+        mainMenu.createRecipe(recipe);
     }
 
     @Test
@@ -27,5 +27,6 @@ public class AllTests {
         String recipeName = "";
         Menu mainMenu = new MainMenu();
         Menu recipeMenu = mainMenu.retrieveRecipe(recipeName);
+        recipeMenu.show();
     }
 }
