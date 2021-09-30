@@ -2,11 +2,9 @@ package test;
 
 import org.junit.Test;
 
+import java.util.List;
+
 public class AllTests {
-    @Test
-    void firstTest(){
-        System.out.println("JUnit Test 1");
-    }
 
     @Test
     void createRecipe(){
@@ -18,7 +16,8 @@ public class AllTests {
     @Test
     void exploreRecipes(){
         Menu mainMenu = new MainMenu();
-        Menu exploreRecipesMenu = mainMenu.exploreRecipes();
+        List<Recipe> recipesList = mainMenu.getRecipes();
+        Menu exploreRecipesMenu = new ExploreRecipesMenu(recipesList);
         exploreRecipesMenu.show();
     }
 

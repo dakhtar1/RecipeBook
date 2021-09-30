@@ -2,7 +2,10 @@ package test;
 
 import java.util.List;
 
-public class MainMenu implements Menu {
+public class ExploreRecipesMenu implements Menu {
+    public ExploreRecipesMenu(List<Recipe> recipesList) {
+    }
+
     @Override
     public void createRecipe(Recipe recipe) {
 

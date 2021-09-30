@@ -1,9 +1,10 @@
 package test;
+import java.util.List;
 
 public interface Menu {
     void createRecipe(Recipe recipe);
 
-    Menu exploreRecipes();
+    List<Recipe> getRecipes();
 
     void show();
 
