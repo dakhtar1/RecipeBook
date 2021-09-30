@@ -5,7 +5,8 @@ import java.util.List;
 public class MainMenu implements Menu {
     @Override
     public void createRecipe(Recipe recipe) {
-
+        RecipeAO recipeAO = new RecipeAO();
+        recipeAO.createRecipe(recipe);
     }
 
     @Override
