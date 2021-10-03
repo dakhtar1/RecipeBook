@@ -5,13 +5,13 @@ import java.util.List;
 public class MainMenu implements Menu {
     @Override
     public void createRecipe(Recipe recipe) {
-        RecipeAO recipeAO = new RecipeAO();
+        RecipeAOJSON recipeAO = new RecipeAOJSON();
         recipeAO.createRecipe(recipe);
     }
 
     @Override
     public List<Recipe> getRecipes() {
-        RecipeAO recipeAO = new RecipeAO();
+        RecipeAOJSON recipeAO = new RecipeAOJSON();
         return recipeAO.getRecipes();
     }
 

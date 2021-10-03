@@ -2,6 +2,7 @@ package test;
 
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,6 +14,12 @@ public class AllTests {
         mainMenu.show();
     }
 
+    @Test
+    public void initializeRecipes() throws IOException {
+        RecipeAO recipeAO = new RecipeAOCSV();
+        recipeAO.initializeRecipesList("src/files/recipes.csv");
+        System.out.println(recipeAO.getRecipes());
+    }
     @Test
     public void createRecipe(){
         String recipename = "Lasagna";
