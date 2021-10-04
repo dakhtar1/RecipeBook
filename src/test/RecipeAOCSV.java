@@ -38,7 +38,13 @@ public class RecipeAOCSV implements RecipeAO {
 
     @Override
     public void createRecipe(Recipe recipe) {
-        //TODO: Need to implement this method.
+        if (!recipeMap.containsKey(recipe.getRecipeName())){
+            Recipe newRecipe = new Recipe(recipe.getRecipeName(), recipe.getIngredients(), recipe.getDirections());
+            recipeMap.put(newRecipe.getRecipeName(), newRecipe);
+            recipeList.add(newRecipe);
+            //TODO: Write the newRecipe object to CSV file.
+            System.out.println("NOT YET written to CSV.");
+        }
         System.out.println("RECIPE: " + "\n" + recipe.toString() + "CREATED SUCCESSFULLY.");
     }
 

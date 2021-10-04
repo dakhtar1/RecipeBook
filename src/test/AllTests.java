@@ -35,11 +35,12 @@ public class AllTests {
     }
 
     @Test
-    public void exploreRecipes(){
-        Menu mainMenu = new MainMenu();
+    public void exploreRecipes() throws Exception {
+        RecipeAO recipeAO = new RecipeAOCSV();
+        recipeAO.initializeRecipesList("src/files/recipes.csv");
+        Menu mainMenu = new MainMenu(recipeAO);
         List<Recipe> recipesList = mainMenu.getRecipes();
         Menu exploreRecipesMenu = new ExploreRecipesMenu(recipesList);
-        //TODO: Make sure that parsing happens for all steps.
         exploreRecipesMenu.show();
     }
 

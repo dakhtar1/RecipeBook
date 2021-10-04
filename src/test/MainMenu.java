@@ -3,16 +3,26 @@ package test;
 import java.util.List;
 
 public class MainMenu implements Menu {
+    RecipeAO recipeAO;
+    public MainMenu(RecipeAO recipeAO) throws Exception {
+        if (recipeAO == null){
+            throw new Exception("Unable to instantiate MainMenu, recipeAO is null.");
+        }
+        this.recipeAO = recipeAO;
+    }
+
+    public MainMenu() {
+        System.out.println("Main Menu initialized WITHOUT recipeAO.");
+    }
+
     @Override
     public void createRecipe(Recipe recipe) {
-        RecipeAOJSON recipeAO = new RecipeAOJSON();
-        recipeAO.createRecipe(recipe);
+        this.recipeAO.createRecipe(recipe);
     }
 
     @Override
     public List<Recipe> getRecipes() {
-        RecipeAOJSON recipeAO = new RecipeAOJSON();
-        return recipeAO.getRecipes();
+        return this.recipeAO.getRecipes();
     }
 
     @Override
