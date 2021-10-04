@@ -10,4 +10,6 @@ public interface RecipeAO {
     void createRecipe(Recipe recipe);
 
     List<Recipe> getRecipes();
+
+    Recipe getRecipe(String recipeName);
 }

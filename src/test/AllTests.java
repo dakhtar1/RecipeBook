@@ -30,6 +30,7 @@ public class AllTests {
         directions.add("Make the pasta");
         Recipe recipe = new Recipe(recipename, ingredientsList, directions);
         Menu mainMenu = new MainMenu();
+        //TODO: Add check if recipe already exists.
         mainMenu.createRecipe(recipe);
     }
 
@@ -38,6 +39,7 @@ public class AllTests {
         Menu mainMenu = new MainMenu();
         List<Recipe> recipesList = mainMenu.getRecipes();
         Menu exploreRecipesMenu = new ExploreRecipesMenu(recipesList);
+        //TODO: Make sure that parsing happens for all steps.
         exploreRecipesMenu.show();
     }
 

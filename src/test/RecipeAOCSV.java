@@ -38,11 +38,17 @@ public class RecipeAOCSV implements RecipeAO {
 
     @Override
     public void createRecipe(Recipe recipe) {
+        //TODO: Need to implement this method.
         System.out.println("RECIPE: " + "\n" + recipe.toString() + "CREATED SUCCESSFULLY.");
     }
 
     @Override
     public List<Recipe> getRecipes() {
         return this.recipeList;
+    }
+
+    @Override
+    public Recipe getRecipe(String recipeName){
+        return this.recipeMap.get(recipeName);
     }
 }

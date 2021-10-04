@@ -27,4 +27,10 @@ public class RecipeAOJSON implements RecipeAO {
         recipeList.add(recipe1);
         return recipeList;
     }
+
+    @Override
+    public Recipe getRecipe(String recipeName) {
+        //TODO: not implemented yet.
+        return null;
+    }
 }
