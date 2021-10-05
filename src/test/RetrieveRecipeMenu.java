@@ -26,6 +26,9 @@ public class RetrieveRecipeMenu implements Menu {
         if (recipe == null){
             System.out.println("NO RECIPE FOUND WITH NAME " + "\"" + recipeName + "\"");
         }
+        else{
+            System.out.println(recipeName + " successfully found.");
+        }
         return this.recipeAO.getRecipe(recipeName);
     }
 }
