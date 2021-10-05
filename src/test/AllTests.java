@@ -63,5 +63,6 @@ public class AllTests {
         retrieveRecipeMenu.show();
         String recipeName = "lasagna";
         //TODO: Implement retrieval in interactive way.
+        //TEST
     }
 }
