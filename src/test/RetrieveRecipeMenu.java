@@ -21,6 +21,7 @@ public class RetrieveRecipeMenu implements Menu {
 
     @Override
     public Recipe retrieveRecipe(String recipeName) throws Exception {
+        System.out.println("Retrieving recipe: " + "\"" + recipeName + "\"" + "...");
         Recipe recipe = this.recipeAO.getRecipe(recipeName);
         if (recipe == null){
             System.out.println("NO RECIPE FOUND WITH NAME " + "\"" + recipeName + "\"");

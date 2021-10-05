@@ -22,7 +22,7 @@ public class AllTests {
     }
     @Test
     public void createRecipe() throws Exception {
-        String recipename = "test";
+        String recipename = "lasagna";
         List<String> ingredientsList = new LinkedList<>();
         ingredientsList.add("pasta");
         ingredientsList.add("tomatoes");
@@ -32,6 +32,7 @@ public class AllTests {
         RecipeAO recipeAO = new RecipeAOCSV("src/files/recipes.csv");
         recipeAO.initializeRecipesList();
         Menu createRecipeMenu = new CreateRecipeMenu(recipeAO);
+        createRecipeMenu.show();
         createRecipeMenu.createRecipe(recipe);
     }
 
@@ -47,10 +48,11 @@ public class AllTests {
     public void retrieveRecipe() throws Exception {
         RecipeAO recipeAO = new RecipeAOCSV("src/files/recipes.csv");
         recipeAO.initializeRecipesList();
-        String recipeName = "lasagna";
         Menu retrieveRecipeMenu = new RetrieveRecipeMenu(recipeAO);
         retrieveRecipeMenu.show();
-        retrieveRecipeMenu.retrieveRecipe(recipeName);
+        String recipeName = "lasagna";
+        Recipe retrievedRecipe = retrieveRecipeMenu.retrieveRecipe(recipeName);
+        System.out.println(retrievedRecipe);
     }
 
     //TODO: delete recipe option...?
