@@ -1,19 +1,22 @@
 package test;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class RecipeAOCSV implements RecipeAO {
+    private String filename;
     private List<Recipe> recipeList;
     private Map<String, Recipe> recipeMap;
+
+    public RecipeAOCSV(String filename) {
+        this.filename = filename;
+    }
+
     @Override
-    public void initializeRecipesList(String filename) throws IOException {
+    public void initializeRecipesList() throws IOException {
         recipeList = new LinkedList<>();
         recipeMap = new HashMap<>();
-        BufferedReader bf = new BufferedReader(new FileReader(filename));
+        BufferedReader bf = new BufferedReader(new FileReader(this.filename));
         String line = "";
         while ((line = bf.readLine()) != null){
             String[] recipeData = line.split(",");
@@ -37,15 +40,49 @@ public class RecipeAOCSV implements RecipeAO {
     }
 
     @Override
-    public void createRecipe(Recipe recipe) {
-        if (!recipeMap.containsKey(recipe.getRecipeName())){
-            Recipe newRecipe = new Recipe(recipe.getRecipeName(), recipe.getIngredients(), recipe.getDirections());
+    public void createRecipe(Recipe recipe) throws Exception {
+        if (this.recipeMap == null){
+            throw new Exception("Unable to retrieve recipe, recipeMap was null.");
+        }
+        if (this.recipeList == null){
+            throw new Exception("Unable to retrieve recipe, recipeList was null");
+        }
+        if (!recipeMap.containsKey(recipe.getRecipeName().toLowerCase())){
+            Recipe newRecipe = new Recipe(recipe.getRecipeName().toLowerCase(), recipe.getIngredients(), recipe.getDirections());
             recipeMap.put(newRecipe.getRecipeName(), newRecipe);
             recipeList.add(newRecipe);
-            //TODO: Write the newRecipe object to CSV file.
-            System.out.println("NOT YET written to CSV.");
+            FileWriter fw = new FileWriter(this.filename, true);
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("\n");
+            stringBuilder.append(newRecipe.getRecipeName());
+            stringBuilder.append(",");
+            Iterator<String> it = newRecipe.getIngredients().iterator();
+            int num = 0;
+            while (it.hasNext()){
+                stringBuilder.append(it.next());
+                num+=1;
+                if (num < newRecipe.getIngredients().size()){
+                    stringBuilder.append("-");
+                }
+            }
+            stringBuilder.append(",");
+            num = 0;
+            it = newRecipe.getDirections().iterator();
+            while (it.hasNext()){
+                stringBuilder.append(it.next());
+                num+=1;
+                if (num < newRecipe.getDirections().size()){
+                    stringBuilder.append("-");
+                }
+            }
+            fw.write(stringBuilder.toString());
+            fw.close();
+            System.out.println("RECIPE: " + "\n" + recipe.toString() + "CREATED SUCCESSFULLY.");
         }
-        System.out.println("RECIPE: " + "\n" + recipe.toString() + "CREATED SUCCESSFULLY.");
+        //Check to ensure that if recipe already exists, no action is taken.
+        else{
+            System.out.println("RECIPE: " + "\"" + recipe.getRecipeName() + "\"" + " already exists. NO ACTION TAKEN.");
+        }
     }
 
     @Override

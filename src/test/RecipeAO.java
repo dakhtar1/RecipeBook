@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.util.List;
 
 public interface RecipeAO {
-    void initializeRecipesList(String filename) throws IOException;
+    void initializeRecipesList() throws IOException;
 
-    void createRecipe(Recipe recipe);
+    void createRecipe(Recipe recipe) throws Exception;
 
     List<Recipe> getRecipes();
 

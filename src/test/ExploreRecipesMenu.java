@@ -10,25 +10,20 @@ public class ExploreRecipesMenu implements Menu {
     }
 
     @Override
-    public void createRecipe(Recipe recipe) {
-
-    }
-
-    @Override
-    public List<Recipe> getRecipes() {
-        return null;
-    }
-
-    @Override
     public void show() {
-        System.out.println("Recipes:");
+        System.out.println("RECIPES:");
         for (Recipe recipe: recipeList){
             System.out.println(recipe);
         }
     }
 
     @Override
-    public Menu retrieveRecipe(String recipeName) {
-        return null;
+    public void createRecipe(Recipe recipe) throws Exception {
+        throw new Exception("Class ExploreRecipesMenu cannot call \"createRecipe\" method.");
+    }
+
+    @Override
+    public Recipe retrieveRecipe(String recipeName) throws Exception {
+        throw new Exception("Class ExploreRecipesMenu cannot call \"retrieveRecipe\" method.");
     }
 }

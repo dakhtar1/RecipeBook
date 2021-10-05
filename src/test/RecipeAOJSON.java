@@ -7,7 +7,7 @@ public class RecipeAOJSON implements RecipeAO {
     List<Recipe> recipesList;
 
     @Override
-    public void initializeRecipesList(String filename) {
+    public void initializeRecipesList() {
     }
 
     @Override

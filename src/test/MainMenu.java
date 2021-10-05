@@ -1,7 +1,5 @@
 package test;
 
-import java.util.List;
-
 public class MainMenu implements Menu {
     RecipeAO recipeAO;
     public MainMenu(RecipeAO recipeAO) throws Exception {
@@ -15,15 +13,13 @@ public class MainMenu implements Menu {
         System.out.println("Main Menu initialized WITHOUT recipeAO.");
     }
 
+    //TODO: Should be only a part of the CreateRecipeMenu.
+    /*
     @Override
-    public void createRecipe(Recipe recipe) {
+    public void createRecipe(Recipe recipe) throws Exception {
         this.recipeAO.createRecipe(recipe);
     }
-
-    @Override
-    public List<Recipe> getRecipes() {
-        return this.recipeAO.getRecipes();
-    }
+    */
 
     @Override
     public void show() {
@@ -39,7 +35,12 @@ public class MainMenu implements Menu {
     }
 
     @Override
-    public Menu retrieveRecipe(String recipeName) {
-        return null;
+    public void createRecipe(Recipe recipe) throws Exception {
+        throw new Exception("Class MainMenu cannot call \"createRecipe\" method.");
+    }
+
+    @Override
+    public Recipe retrieveRecipe(String recipeName) throws Exception {
+        throw new Exception("Class MainMenu cannot call \"retrieveRecipe\" method.");
     }
 }

@@ -16,39 +16,40 @@ public class AllTests {
 
     @Test
     public void initializeRecipes() throws IOException {
-        RecipeAO recipeAO = new RecipeAOCSV();
-        recipeAO.initializeRecipesList("src/files/recipes.csv");
+        RecipeAO recipeAO = new RecipeAOCSV("src/files/recipes.csv");
+        recipeAO.initializeRecipesList();
         System.out.println(recipeAO.getRecipes());
     }
     @Test
-    public void createRecipe(){
-        String recipename = "Lasagna";
+    public void createRecipe() throws Exception {
+        String recipename = "test";
         List<String> ingredientsList = new LinkedList<>();
         ingredientsList.add("pasta");
         ingredientsList.add("tomatoes");
         List<String> directions = new LinkedList<>();
         directions.add("Make the pasta");
         Recipe recipe = new Recipe(recipename, ingredientsList, directions);
-        Menu mainMenu = new MainMenu();
-        //TODO: Add check if recipe already exists.
-        mainMenu.createRecipe(recipe);
+        RecipeAO recipeAO = new RecipeAOCSV("src/files/recipes.csv");
+        recipeAO.initializeRecipesList();
+        Menu createRecipeMenu = new CreateRecipeMenu(recipeAO);
+        createRecipeMenu.createRecipe(recipe);
     }
 
     @Test
     public void exploreRecipes() throws Exception {
-        RecipeAO recipeAO = new RecipeAOCSV();
-        recipeAO.initializeRecipesList("src/files/recipes.csv");
-        Menu mainMenu = new MainMenu(recipeAO);
-        List<Recipe> recipesList = mainMenu.getRecipes();
-        Menu exploreRecipesMenu = new ExploreRecipesMenu(recipesList);
+        RecipeAO recipeAO = new RecipeAOCSV("src/files/recipes.csv");
+        recipeAO.initializeRecipesList();
+        Menu exploreRecipesMenu = new ExploreRecipesMenu(recipeAO.getRecipes());
         exploreRecipesMenu.show();
     }
 
     @Test
-    public void retrieveRecipe(){
-        String recipeName = "";
-        Menu mainMenu = new MainMenu();
-        Menu recipeMenu = mainMenu.retrieveRecipe(recipeName);
-        recipeMenu.show();
+    public void retrieveRecipe() throws Exception {
+        RecipeAO recipeAO = new RecipeAOCSV("src/files/recipes.csv");
+        recipeAO.initializeRecipesList();
+        String recipeName = "lasagna";
+        Menu retrieveRecipeMenu = new RetrieveRecipeMenu(recipeAO);
+        retrieveRecipeMenu.show();
+        retrieveRecipeMenu.retrieveRecipe(recipeName);
     }
 }
