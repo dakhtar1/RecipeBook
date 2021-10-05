@@ -45,7 +45,7 @@ public class AllTests {
     }
 
     @Test
-    public void retrieveRecipe() throws Exception {
+    public void retrieveRecipe_nonInteractive() throws Exception {
         RecipeAO recipeAO = new RecipeAOCSV("src/files/recipes.csv");
         recipeAO.initializeRecipesList();
         Menu retrieveRecipeMenu = new RetrieveRecipeMenu(recipeAO);
@@ -55,5 +55,13 @@ public class AllTests {
         System.out.println(retrievedRecipe);
     }
 
-    //TODO: delete recipe option...?
+    @Test
+    public void retrieveRecipe_Interactive() throws Exception {
+        RecipeAO recipeAO = new RecipeAOCSV("src/files/recipes.csv");
+        recipeAO.initializeRecipesList();
+        Menu retrieveRecipeMenu = new RetrieveRecipeMenu(recipeAO);
+        retrieveRecipeMenu.show();
+        String recipeName = "lasagna";
+        //TODO: Implement retrieval in interactive way.
+    }
 }
