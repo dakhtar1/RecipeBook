@@ -19,16 +19,25 @@ public class RecipeAOCSV implements RecipeAO {
         recipeMap = new HashMap<>();
         BufferedReader bf = new BufferedReader(new FileReader(this.filename));
         String line = "";
+        // Update the string parsing/conversion of the ingredients variable
         while ((line = bf.readLine()) != null){
             String[] recipeData = line.split(",");
             String recipeName = recipeData[0];
             String ingredients = recipeData[1];
             String directions = recipeData[2];
             String[] ingredientsList_unparsed = ingredients.split("-");
-            List<String> ingredientsList = new LinkedList<>();
+            //Include code to separate each ingredient's info/measurements
+
+            ArrayList<ArrayList<String>> ingredientsList = new ArrayList();
             for (String ingredient: ingredientsList_unparsed){
-                ingredientsList.add(ingredient);
+                ArrayList<String> newIngredient = new ArrayList();
+                String[] measurements = ingredient.split("/");
+                newIngredient.add(measurements[0]);
+                newIngredient.add(measurements[1]);
+                newIngredient.add(measurements[2]);
+                ingredientsList.add(newIngredient);
             }
+
             String[] directionsList_unparsed = directions.split("-");
             List<String> directionsList = new LinkedList<>();
             for (String direction: directionsList_unparsed){
@@ -58,7 +67,16 @@ public class RecipeAOCSV implements RecipeAO {
             stringBuilder.append("\n");
             stringBuilder.append(newRecipe.getRecipeName());
             stringBuilder.append(",");
-            Iterator<String> it = newRecipe.getIngredients().iterator();
+
+            /* Currently saves each ingredient as a list.
+            *  TODO: Implement changes so each ingredient is properly saved as a string
+            *  CURRENT:
+            *  pasta,[pasta, 1, lb]-[tomatoes, 24, oz]-[Onions, 2, lb],Make the pasta
+            *
+            *  GOAL:
+            *  pasta,pasta/1/lb-tomatoes/24/oz-Onions/2/lb,Make the pasta
+            */
+            Iterator<ArrayList<String>> it = newRecipe.getIngredients().iterator();
             int num = 0;
             while (it.hasNext()){
                 stringBuilder.append(it.next());
@@ -67,11 +85,13 @@ public class RecipeAOCSV implements RecipeAO {
                     stringBuilder.append("-");
                 }
             }
+
+
             stringBuilder.append(",");
             num = 0;
-            it = newRecipe.getDirections().iterator();
-            while (it.hasNext()){
-                stringBuilder.append(it.next());
+            Iterator<String> itD = newRecipe.getDirections().iterator();
+            while (itD.hasNext()){
+                stringBuilder.append(itD.next());
                 num+=1;
                 if (num < newRecipe.getDirections().size()){
                     stringBuilder.append("-");

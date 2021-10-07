@@ -18,8 +18,14 @@ public class RecipeAOJSON implements RecipeAO {
     @Override
     public List<Recipe> getRecipes() {
         String recipename = "test recipe";
-        List<String> ingredients = new ArrayList<>();
-        ingredients.add("test ingredient");
+
+        ArrayList<ArrayList<String>> ingredients = new ArrayList<>();
+        ArrayList<String> testIngredient = new ArrayList<>();
+        testIngredient.add("test ingredient");
+        testIngredient.add("10");
+        testIngredient.add("oz");
+        ingredients.add(testIngredient);
+
         List<String> directions = new ArrayList<>();
         directions.add("test directions");
         Recipe recipe1 = new Recipe(recipename, ingredients, directions);

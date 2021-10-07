@@ -3,6 +3,7 @@ package test;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,10 +23,20 @@ public class AllTests {
     }
     @Test
     public void createRecipe() throws Exception {
-        String recipename = "lasagna";
-        List<String> ingredientsList = new LinkedList<>();
-        ingredientsList.add("pasta");
-        ingredientsList.add("tomatoes");
+        String recipename = "pasta";
+
+        // Change ingredientsList to be 2D array instead of list of strings
+        ArrayList<ArrayList<String>> ingredientsList = new ArrayList();
+
+        String testList[][] = {{"pasta","1","lb"},{"tomatoes","24","oz"},{"Onions","2","lb"}};
+        for (int i = 0; i < testList.length; i++){
+            ArrayList<String> newIngredient = new ArrayList();
+            newIngredient.add(testList[i][0]);
+            newIngredient.add(testList[i][1]);
+            newIngredient.add(testList[i][2]);
+            ingredientsList.add(newIngredient);
+        }
+
         List<String> directions = new LinkedList<>();
         directions.add("Make the pasta");
         Recipe recipe = new Recipe(recipename, ingredientsList, directions);

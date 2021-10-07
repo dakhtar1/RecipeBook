@@ -2,13 +2,15 @@ package test;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.ArrayList;
 
 public class Recipe {
+    //change ingredients to be a 2D array instead of a list of strings
     private String recipeName;
-    private List<String> ingredients;
+    private ArrayList<ArrayList<String>> ingredients;
     private List<String> directions;
 
-    public Recipe(String recipeName, List<String> ingredients, List<String> directions) {
+    public Recipe(String recipeName, ArrayList<ArrayList<String>> ingredients, List<String> directions) {
         this.recipeName = recipeName;
         this.ingredients = ingredients;
         this.directions = directions;
@@ -22,7 +24,7 @@ public class Recipe {
         return directions;
     }
 
-    public List<String> getIngredients() {
+    public ArrayList<ArrayList<String>> getIngredients() {
         return ingredients;
     }
 
@@ -34,7 +36,7 @@ public class Recipe {
         this.directions = directions;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(ArrayList<ArrayList<String>> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -59,6 +61,7 @@ public class Recipe {
         stringBuilder.append("\n");
         stringBuilder.append("Ingredients: ");
         stringBuilder.append("\n");
+        // Fix so that it accurately parses through new ingredients list format
         for (int i = 0; i < this.ingredients.size(); i++){
             stringBuilder.append((i+1) + ": " + ingredients.get(i) + "\n");
         }
