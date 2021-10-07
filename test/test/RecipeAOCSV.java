@@ -12,6 +12,7 @@ public class RecipeAOCSV implements RecipeAO {
         this.filename = filename;
     }
 
+    // Initialize Recipe Function
     @Override
     public void initializeRecipesList() throws IOException {
         System.out.println("Initializing recipes list...");
@@ -41,6 +42,7 @@ public class RecipeAOCSV implements RecipeAO {
         System.out.println("Initialization complete.");
     }
 
+    // Create Recipe Function
     @Override
     public void createRecipe(Recipe recipe) throws Exception {
         if (this.recipeMap == null){
@@ -87,13 +89,17 @@ public class RecipeAOCSV implements RecipeAO {
         }
     }
 
+    // Get Recipe Function
     @Override
     public List<Recipe> getRecipes() {
         return this.recipeList;
     }
 
+    // Get Recipe Function
     @Override
     public Recipe getRecipe(String recipeName){
         return this.recipeMap.get(recipeName);
     }
 }
+
+// TODO: Make a Delete Recipe function
