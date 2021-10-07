@@ -12,6 +12,7 @@ public class RecipeAOCSV implements RecipeAO {
         this.filename = filename;
     }
 
+    // Initialize Recipe Function
     @Override
     public void initializeRecipesList() throws IOException {
         System.out.println("Initializing recipes list...");
@@ -41,6 +42,7 @@ public class RecipeAOCSV implements RecipeAO {
         System.out.println("Initialization complete.");
     }
 
+    // Create Recipe Function
     @Override
     public void createRecipe(Recipe recipe) throws Exception {
         if (this.recipeMap == null){
@@ -87,13 +89,58 @@ public class RecipeAOCSV implements RecipeAO {
         }
     }
 
+    // Get Recipe Function
     @Override
     public List<Recipe> getRecipes() {
         return this.recipeList;
     }
 
+    // Get Recipe Function
     @Override
     public Recipe getRecipe(String recipeName){
         return this.recipeMap.get(recipeName);
     }
+
+    // TODO: Make a Delete Recipe function
+
+    @Override
+    public void deleteRecipe(String recipe_name) throws IOException {
+        // Handle Exception
+        Iterator<Recipe> it = this.recipeList.iterator();
+        StringBuilder sb = new StringBuilder();
+        FileWriter fw = new FileWriter(this.filename);
+        while (it.hasNext()){
+            Recipe nextRecipe = it.next();
+            // Only add to CSV if the recipe is not the one we are deleting
+            if(!nextRecipe.getRecipeName().equals(recipe_name)){
+                // Add Name
+                sb.append(nextRecipe.getRecipeName());
+                sb.append(",");
+
+                // Add Ingredients
+                List<String> ingredientsList = nextRecipe.getIngredients();
+                for(int i = 0; i < ingredientsList.size(); i++){
+                    sb.append(ingredientsList.get(i));
+                    if (i+1 < nextRecipe.getIngredients().size()){
+                        sb.append("-");
+                    }
+                }
+                sb.append(",");
+
+                // Add Directions
+                List<String> directionsList = nextRecipe.getDirections();
+                for(int i = 0; i < directionsList.size(); i++){
+                    sb.append(directionsList.get(i));
+                    if (i+1 < nextRecipe.getDirections().size()){
+                        sb.append("-");
+                    }
+                }
+                sb.append("\n");
+            }
+        }
+        fw.write(sb.toString());
+        fw.close();
+        System.out.println("RECIPE: " + "\n" + recipe_name + "DELETED SUCCESSFULLY.");
+    }
 }
+
