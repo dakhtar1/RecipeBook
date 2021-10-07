@@ -65,4 +65,11 @@ public class AllTests {
         //TODO: Implement retrieval in interactive way.
         //TEST
     }
+
+    @Test
+    public void deleteRecipe() throws Exception {
+        RecipeAO recipeAO = new RecipeAOCSV("src/files/recipes.csv");
+        recipeAO.initializeRecipesList();
+        recipeAO.deleteRecipe("lasagna");
+    }
 }

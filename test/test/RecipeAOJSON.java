@@ -1,5 +1,6 @@
 package test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,11 @@ public class RecipeAOJSON implements RecipeAO {
     @Override
     public void createRecipe(Recipe recipe) {
         System.out.println("RECIPE: " + "\n" + recipe.toString() + "CREATED SUCCESSFULLY.");
+    }
+
+    @Override
+    public void deleteRecipe(String recipe_name) throws IOException {
+
     }
 
     @Override
