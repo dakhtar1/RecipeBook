@@ -66,4 +66,11 @@ public class AllTests {
         Menu retrieveRecipeInteractiveMenu = new RetrieveRecipeInteractiveMenu(recipeAO);
         retrieveRecipeInteractiveMenu.show_interactive(recipeName);
     }
+
+    @Test
+    public void deleteRecipe() throws Exception {
+        RecipeAO recipeAO = new RecipeAOCSV("src/files/recipes.csv");
+        recipeAO.initializeRecipesList();
+        recipeAO.deleteRecipe("lasagna");
+    }
 }

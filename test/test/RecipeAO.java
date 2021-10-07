@@ -8,6 +8,8 @@ public interface RecipeAO {
 
     void createRecipe(Recipe recipe) throws Exception;
 
+    void deleteRecipe(String recipe_name) throws IOException;
+
     List<Recipe> getRecipes();
 
     Recipe getRecipe(String recipeName);
