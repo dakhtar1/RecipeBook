@@ -40,6 +40,9 @@ public class RetrieveRecipeInteractiveMenu implements Menu {
     @Override
     public void show_interactive(String recipeName) throws Exception {
         Recipe retrievedRecipe = this.recipeAO.getRecipe(recipeName);
+        if (retrievedRecipe == null){
+            throw new Exception("RECIPE " + "\"" + recipeName + "\"" + " does not exist.");
+        }
         System.out.println("RECIPE " + "\"" + retrievedRecipe.getRecipeName() + "\"" + ":");
         System.out.println();
         System.out.println();
