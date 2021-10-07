@@ -66,7 +66,12 @@ public class Recipe {
         stringBuilder.append("Directions: ");
         stringBuilder.append("\n");
         for (int i = 0; i < this.directions.size(); i++){
-            stringBuilder.append("Step " + (i+1) + ": " + directions.get(i) + "\n");
+            if (i < this.directions.size()-1){
+                stringBuilder.append("Step " + (i+1) + ": " + directions.get(i) + "\n");
+            }
+            else{
+                stringBuilder.append("Step " + (i+1) + ": " + directions.get(i));
+            }
         }
         return stringBuilder.toString();
     }

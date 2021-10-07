@@ -14,6 +14,7 @@ public class ExploreRecipesMenu implements Menu {
         System.out.println("RECIPES:");
         for (Recipe recipe: recipeList){
             System.out.println(recipe);
+            System.out.println();
         }
     }
 
