@@ -31,4 +31,9 @@ public class RetrieveRecipeMenu implements Menu {
         }
         return this.recipeAO.getRecipe(recipeName);
     }
+
+    @Override
+    public void show_interactive(String recipeName) throws Exception {
+        throw new Exception("Class RetrieveRecipMenu cannot call \"show_interactive\" method.");
+    }
 }

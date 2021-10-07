@@ -2,7 +2,10 @@ package test;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -59,10 +62,8 @@ public class AllTests {
     public void retrieveRecipe_Interactive() throws Exception {
         RecipeAO recipeAO = new RecipeAOCSV("src/files/recipes.csv");
         recipeAO.initializeRecipesList();
-        Menu retrieveRecipeMenu = new RetrieveRecipeMenu(recipeAO);
-        retrieveRecipeMenu.show();
         String recipeName = "lasagna";
-        //TODO: Implement retrieval in interactive way.
-        //TEST
+        Menu retrieveRecipeInteractiveMenu = new RetrieveRecipeInteractiveMenu(recipeAO);
+        retrieveRecipeInteractiveMenu.show_interactive(recipeName);
     }
 }

@@ -23,4 +23,9 @@ public class CreateRecipeMenu implements Menu {
     public Recipe retrieveRecipe(String recipeName) throws Exception {
         throw new Exception("Class CreateRecipeMenu cannot call \"retrieveRecipe\" method.");
     }
+
+    @Override
+    public void show_interactive(String recipeName) throws Exception {
+        throw new Exception("Class CreateRecipeMenu cannot call \"show_interactive\" method.");
+    }
 }
