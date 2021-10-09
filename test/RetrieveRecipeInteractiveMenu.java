@@ -1,6 +1,5 @@
-package test;
-
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.List;
@@ -57,14 +56,21 @@ public class RetrieveRecipeInteractiveMenu implements Menu {
         int num = 1;
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         Iterator<String> it = directionsList.iterator();
-        System.out.println("Please press enter to view Step " + num);
+        System.out.println("Please type \"next\" to view Step " + num);
+        input = bf.readLine().toLowerCase();
         while (it.hasNext()){
-            input = bf.readLine();
-            while (input == "" || !input.equals("\n")){
-                input = bf.readLine();
+            while (!input.equals("next")){
+                System.out.println("Please type \"next\" to view Step " + num);
+                input = bf.readLine().toLowerCase();
             }
             System.out.println("Step " + num + ": " + it.next());
             num+=1;
         }
+        System.out.println("All steps completed! Enjoy!");
+    }
+
+    @Override
+    public void deleteRecipe(String lasagna) throws IOException {
+
     }
 }

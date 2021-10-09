@@ -1,11 +1,7 @@
-package test;
-
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,7 +39,7 @@ public class AllTests {
     public void exploreRecipes() throws Exception {
         RecipeAO recipeAO = new RecipeAOCSV("src/files/recipes.csv");
         recipeAO.initializeRecipesList();
-        Menu exploreRecipesMenu = new ExploreRecipesMenu(recipeAO.getRecipes());
+        Menu exploreRecipesMenu = new ExploreRecipesMenu(recipeAO);
         exploreRecipesMenu.show();
     }
 
@@ -59,6 +55,7 @@ public class AllTests {
     }
 
     @Test
+    @Ignore
     public void retrieveRecipe_Interactive() throws Exception {
         //TODO: Needs tested return input.
         RecipeAO recipeAO = new RecipeAOCSV("src/files/recipes.csv");
@@ -72,6 +69,9 @@ public class AllTests {
     public void deleteRecipe() throws Exception {
         RecipeAO recipeAO = new RecipeAOCSV("src/files/recipes.csv");
         recipeAO.initializeRecipesList();
-        recipeAO.deleteRecipe("lasagna");
+        Menu deleteRecipeMenu = new DeleteRecipeMenu(recipeAO);
+        String recipeName = "lasagna";
+        deleteRecipeMenu.show();
+        deleteRecipeMenu.deleteRecipe(recipeName);
     }
 }

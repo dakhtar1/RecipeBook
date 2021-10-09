@@ -1,5 +1,3 @@
-package test;
-
 import java.io.*;
 import java.util.*;
 
@@ -118,19 +116,25 @@ public class RecipeAOCSV implements RecipeAO {
 
                 // Add Ingredients
                 List<String> ingredientsList = nextRecipe.getIngredients();
-                for(int i = 0; i < ingredientsList.size(); i++){
-                    sb.append(ingredientsList.get(i));
-                    if (i+1 < nextRecipe.getIngredients().size()){
+                Iterator<String> ingredientsIterator = ingredientsList.iterator();
+                int num = 0;
+                while (ingredientsIterator.hasNext()){
+                    num+=1;
+                    sb.append(ingredientsIterator.next());
+                    if (num < nextRecipe.getIngredients().size()){
                         sb.append("-");
                     }
                 }
                 sb.append(",");
+                num = 0;
 
                 // Add Directions
                 List<String> directionsList = nextRecipe.getDirections();
-                for(int i = 0; i < directionsList.size(); i++){
-                    sb.append(directionsList.get(i));
-                    if (i+1 < nextRecipe.getDirections().size()){
+                Iterator<String> directionsIterator = directionsList.iterator();
+                while (directionsIterator.hasNext()){
+                    num+=1;
+                    directionsIterator.next();
+                    if (num < nextRecipe.getDirections().size()){
                         sb.append("-");
                     }
                 }
@@ -139,7 +143,7 @@ public class RecipeAOCSV implements RecipeAO {
         }
         fw.write(sb.toString());
         fw.close();
-        System.out.println("RECIPE: " + "\n" + recipe_name + "DELETED SUCCESSFULLY.");
+        System.out.println("RECIPE: " + "\"" + recipe_name + "\"" + " DELETED SUCCESSFULLY.");
     }
 }
 

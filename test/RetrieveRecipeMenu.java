@@ -1,4 +1,4 @@
-package test;
+import java.io.IOException;
 
 public class RetrieveRecipeMenu implements Menu {
     RecipeAO recipeAO;
@@ -35,5 +35,10 @@ public class RetrieveRecipeMenu implements Menu {
     @Override
     public void show_interactive(String recipeName) throws Exception {
         throw new Exception("Class RetrieveRecipMenu cannot call \"show_interactive\" method.");
+    }
+
+    @Override
+    public void deleteRecipe(String lasagna) throws IOException {
+
     }
 }
