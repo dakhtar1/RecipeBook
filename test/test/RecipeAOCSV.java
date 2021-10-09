@@ -68,27 +68,17 @@ public class RecipeAOCSV implements RecipeAO {
             stringBuilder.append(newRecipe.getRecipeName());
             stringBuilder.append(",");
 
-            /* Currently saves each ingredient as a list.
-            *  TODO: Implement changes so each ingredient is properly saved as a string
-            *  CURRENT:
-            *  pasta,[pasta, 1, lb]-[tomatoes, 24, oz]-[Onions, 2, lb],Make the pasta
-            *
-            *  GOAL:
-            *  pasta,pasta/1/lb-tomatoes/24/oz-Onions/2/lb,Make the pasta
-            */
-            Iterator<ArrayList<String>> it = newRecipe.getIngredients().iterator();
-            int num = 0;
-            while (it.hasNext()){
-                stringBuilder.append(it.next());
-                num+=1;
-                if (num < newRecipe.getIngredients().size()){
-                    stringBuilder.append("-");
+            // Updated the way the program writes to the csv
+            for (ArrayList Data : newRecipe.getIngredients()){
+                for (Object n : Data){
+                    stringBuilder.append(n);
+                    stringBuilder.append("/");
                 }
+                stringBuilder.append("-");
             }
 
-
             stringBuilder.append(",");
-            num = 0;
+            int num = 0;
             Iterator<String> itD = newRecipe.getDirections().iterator();
             while (itD.hasNext()){
                 stringBuilder.append(itD.next());
