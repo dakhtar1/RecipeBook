@@ -1,19 +1,18 @@
-package test;
-
-import java.util.List;
+import java.io.IOException;
 
 public class ExploreRecipesMenu implements Menu {
-    List<Recipe> recipeList;
+    RecipeAO recipeAO;
 
-    public ExploreRecipesMenu(List<Recipe> recipesList) {
-        this.recipeList = recipesList;
+    public ExploreRecipesMenu(RecipeAO recipeAO) {
+        this.recipeAO = recipeAO;
     }
 
     @Override
     public void show() {
         System.out.println("RECIPES:");
-        for (Recipe recipe: recipeList){
+        for (Recipe recipe: recipeAO.getRecipes()){
             System.out.println(recipe);
+            System.out.println();
         }
     }
 
@@ -25,5 +24,16 @@ public class ExploreRecipesMenu implements Menu {
     @Override
     public Recipe retrieveRecipe(String recipeName) throws Exception {
         throw new Exception("Class ExploreRecipesMenu cannot call \"retrieveRecipe\" method.");
+    }
+
+    @Override
+    public void show_interactive(String recipeName) throws Exception {
+        throw new Exception("Class ExploreRecipesMenu cannot call \"show_interactive\" method.");
+
+    }
+
+    @Override
+    public void deleteRecipe(String lasagna) throws IOException {
+
     }
 }

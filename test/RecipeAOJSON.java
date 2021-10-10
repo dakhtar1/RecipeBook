@@ -1,7 +1,6 @@
-package test;
-
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class RecipeAOJSON implements RecipeAO {
@@ -24,9 +23,15 @@ public class RecipeAOJSON implements RecipeAO {
     @Override
     public List<Recipe> getRecipes() {
         String recipename = "test recipe";
-        List<String> ingredients = new ArrayList<>();
-        ingredients.add("test ingredient");
-        List<String> directions = new ArrayList<>();
+
+        LinkedList<List<String>> ingredients = new LinkedList<>();
+        LinkedList<String> testIngredient = new LinkedList<>();
+        testIngredient.add("test ingredient");
+        testIngredient.add("10");
+        testIngredient.add("oz");
+        ingredients.add(testIngredient);
+
+        List<String> directions = new LinkedList<>();
         directions.add("test directions");
         Recipe recipe1 = new Recipe(recipename, ingredients, directions);
         List<Recipe> recipeList = new ArrayList<>();

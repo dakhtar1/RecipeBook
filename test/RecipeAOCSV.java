@@ -1,5 +1,3 @@
-package test;
-
 import java.io.*;
 import java.util.*;
 
@@ -20,16 +18,25 @@ public class RecipeAOCSV implements RecipeAO {
         recipeMap = new HashMap<>();
         BufferedReader bf = new BufferedReader(new FileReader(this.filename));
         String line = "";
+        // Update the string parsing/conversion of the ingredients variable
         while ((line = bf.readLine()) != null){
             String[] recipeData = line.split(",");
             String recipeName = recipeData[0];
             String ingredients = recipeData[1];
             String directions = recipeData[2];
             String[] ingredientsList_unparsed = ingredients.split("-");
-            List<String> ingredientsList = new LinkedList<>();
+            //Include code to separate each ingredient's info/measurements
+
+            LinkedList<List<String>> ingredientsList = new LinkedList();
             for (String ingredient: ingredientsList_unparsed){
-                ingredientsList.add(ingredient);
+                ArrayList<String> newIngredient = new ArrayList();
+                String[] measurements = ingredient.split("/");
+                newIngredient.add(measurements[0]);
+                newIngredient.add(measurements[1]);
+                newIngredient.add(measurements[2]);
+                ingredientsList.add(newIngredient);
             }
+
             String[] directionsList_unparsed = directions.split("-");
             List<String> directionsList = new LinkedList<>();
             for (String direction: directionsList_unparsed){
@@ -57,31 +64,32 @@ public class RecipeAOCSV implements RecipeAO {
             recipeList.add(newRecipe);
             FileWriter fw = new FileWriter(this.filename, true);
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("\n");
             stringBuilder.append(newRecipe.getRecipeName());
             stringBuilder.append(",");
-            Iterator<String> it = newRecipe.getIngredients().iterator();
-            int num = 0;
-            while (it.hasNext()){
-                stringBuilder.append(it.next());
-                num+=1;
-                if (num < newRecipe.getIngredients().size()){
-                    stringBuilder.append("-");
+
+            // Updated the way the program writes to the csv
+            for (List<String> Data : newRecipe.getIngredients()){
+                for (Object n : Data){
+                    stringBuilder.append(n);
+                    stringBuilder.append("/");
                 }
+                stringBuilder.append("-");
             }
+
             stringBuilder.append(",");
-            num = 0;
-            it = newRecipe.getDirections().iterator();
-            while (it.hasNext()){
-                stringBuilder.append(it.next());
+            int num = 0;
+            Iterator<String> itD = newRecipe.getDirections().iterator();
+            while (itD.hasNext()){
+                stringBuilder.append(itD.next());
                 num+=1;
                 if (num < newRecipe.getDirections().size()){
                     stringBuilder.append("-");
                 }
             }
+            stringBuilder.append("\n");
             fw.write(stringBuilder.toString());
             fw.close();
-            System.out.println("RECIPE: " + "\n" + recipe.toString() + "CREATED SUCCESSFULLY.");
+            System.out.println("RECIPE: " + "\n" + recipe.getRecipeName() + "CREATED SUCCESSFULLY.");
         }
         //Check to ensure that if recipe already exists, no action is taken.
         else{
@@ -118,20 +126,26 @@ public class RecipeAOCSV implements RecipeAO {
                 sb.append(",");
 
                 // Add Ingredients
-                List<String> ingredientsList = nextRecipe.getIngredients();
-                for(int i = 0; i < ingredientsList.size(); i++){
-                    sb.append(ingredientsList.get(i));
-                    if (i+1 < nextRecipe.getIngredients().size()){
+                List<List<String>> ingredientsList = nextRecipe.getIngredients();
+                Iterator<List<String>> ingredientsIterator = ingredientsList.iterator();
+                int num = 0;
+                while (ingredientsIterator.hasNext()){
+                    num+=1;
+                    sb.append(ingredientsIterator.next());
+                    if (num < nextRecipe.getIngredients().size()){
                         sb.append("-");
                     }
                 }
                 sb.append(",");
+                num = 0;
 
                 // Add Directions
                 List<String> directionsList = nextRecipe.getDirections();
-                for(int i = 0; i < directionsList.size(); i++){
-                    sb.append(directionsList.get(i));
-                    if (i+1 < nextRecipe.getDirections().size()){
+                Iterator<String> directionsIterator = directionsList.iterator();
+                while (directionsIterator.hasNext()){
+                    num+=1;
+                    directionsIterator.next();
+                    if (num < nextRecipe.getDirections().size()){
                         sb.append("-");
                     }
                 }
@@ -140,7 +154,7 @@ public class RecipeAOCSV implements RecipeAO {
         }
         fw.write(sb.toString());
         fw.close();
-        System.out.println("RECIPE: " + "\n" + recipe_name + "DELETED SUCCESSFULLY.");
+        System.out.println("RECIPE: " + "\"" + recipe_name + "\"" + " DELETED SUCCESSFULLY.");
     }
 }
 

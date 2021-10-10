@@ -1,4 +1,4 @@
-package test;
+import java.io.IOException;
 
 public interface Menu {
 
@@ -7,4 +7,8 @@ public interface Menu {
     void createRecipe(Recipe recipe) throws Exception;
 
     Recipe retrieveRecipe(String recipeName) throws Exception;
+
+    void show_interactive(String recipeName) throws Exception;
+
+    void deleteRecipe(String lasagna) throws IOException;
 }
