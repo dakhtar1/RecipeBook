@@ -42,7 +42,7 @@ public class AllTests {
         List<String> directions = new LinkedList<>();
         directions.add("Make the pasta");
         Recipe recipe = new Recipe(recipename, ingredientsList, directions);
-        RecipeAO recipeAO = new RecipeAOCSV("src/data/recipes.csv");
+        RecipeAO recipeAO = new RecipeAOCSV("./src/data/recipes.csv");
         recipeAO.initializeRecipesList();
         Menu createRecipeMenu = new CreateRecipeMenu(recipeAO);
         createRecipeMenu.show();
