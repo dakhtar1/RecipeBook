@@ -31,9 +31,12 @@ public class Main {
             input = bf.readLine();
             if (input.equals("1")) {
                 exploreRecipesMenu.show();
-            } else {
+            }
+            // ADD COMMANDS 2-5 HERE
+            else {
                 return;
             }
+
         }
     }
 }
