@@ -113,7 +113,10 @@ public class RecipeAOCSV implements RecipeAO {
 
     @Override
     public void deleteRecipe(String recipe_name) throws IOException {
-        // Handle Exception
+        if (!this.recipeMap.containsKey(recipe_name)){
+            System.out.println("NO RECIPE: " + "\"" + recipe_name + "\"" + " exists.");
+            return;
+        }
         Iterator<Recipe> it = this.recipeList.iterator();
         StringBuilder sb = new StringBuilder();
         FileWriter fw = new FileWriter(this.filename);
@@ -121,35 +124,7 @@ public class RecipeAOCSV implements RecipeAO {
             Recipe nextRecipe = it.next();
             // Only add to CSV if the recipe is not the one we are deleting
             if(!nextRecipe.getRecipeName().equals(recipe_name)){
-                // Add Name
-                sb.append(nextRecipe.getRecipeName());
-                sb.append(",");
-
-                // Add Ingredients
-                List<List<String>> ingredientsList = nextRecipe.getIngredients();
-                Iterator<List<String>> ingredientsIterator = ingredientsList.iterator();
-                int num = 0;
-                while (ingredientsIterator.hasNext()){
-                    num+=1;
-                    sb.append(ingredientsIterator.next());
-                    if (num < nextRecipe.getIngredients().size()){
-                        sb.append("-");
-                    }
-                }
-                sb.append(",");
-                num = 0;
-
-                // Add Directions
-                List<String> directionsList = nextRecipe.getDirections();
-                Iterator<String> directionsIterator = directionsList.iterator();
-                while (directionsIterator.hasNext()){
-                    num+=1;
-                    directionsIterator.next();
-                    if (num < nextRecipe.getDirections().size()){
-                        sb.append("-");
-                    }
-                }
-                sb.append("\n");
+                sb.append(RecipeStringParser.parseRecipeToCSVEntry(nextRecipe));
             }
         }
         fw.write(sb.toString());
