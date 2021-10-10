@@ -46,8 +46,8 @@ public class RetrieveRecipeInteractiveMenu implements Menu {
         System.out.println();
         System.out.println();
         System.out.println("INGREDIENTS: ");
-        for (String ingredient: retrievedRecipe.getIngredients()){
-            System.out.println("-" + " " + ingredient);
+        for (List<String> ingredientList: retrievedRecipe.getIngredients()){
+            System.out.println(ingredientList.get(2) + ingredientList.get(1) + " " + ingredientList.get(0));
         }
         System.out.println();
         System.out.println();
@@ -66,7 +66,7 @@ public class RetrieveRecipeInteractiveMenu implements Menu {
             System.out.println("Step " + num + ": " + it.next());
             num+=1;
         }
-        System.out.println("All steps completed! Enjoy!");
+        System.out.println("END OF RECIPE.");
     }
 
     @Override
