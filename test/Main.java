@@ -31,6 +31,7 @@ public class Main {
         System.out.println();
         System.out.println();
         System.out.println();
+      
         while (true){
             System.out.println("Please enter a command or press any other key to exit:");
             input = bf.readLine();
