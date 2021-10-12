@@ -27,9 +27,9 @@ public class RecipeAOCSV implements RecipeAO {
             String[] ingredientsList_unparsed = ingredients.split("-");
             //Include code to separate each ingredient's info/measurements
 
-            LinkedList<List<String>> ingredientsList = new LinkedList();
+            LinkedList<List<String>> ingredientsList = new LinkedList<>();
             for (String ingredient: ingredientsList_unparsed){
-                ArrayList<String> newIngredient = new ArrayList();
+                ArrayList<String> newIngredient = new ArrayList<>();
                 String[] measurements = ingredient.split("/");
                 newIngredient.add(measurements[0]);
                 newIngredient.add(measurements[1]);
@@ -108,8 +108,6 @@ public class RecipeAOCSV implements RecipeAO {
     public Recipe getRecipe(String recipeName){
         return this.recipeMap.get(recipeName);
     }
-
-    // TODO: Make a Delete Recipe function
 
     @Override
     public void deleteRecipe(String recipe_name) throws IOException {
