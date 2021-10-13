@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLOutput;
 import java.util.Iterator;
 import java.util.List;
 
@@ -40,7 +41,8 @@ public class RetrieveRecipeInteractiveMenu implements Menu {
     public void show_interactive(String recipeName) throws Exception {
         Recipe retrievedRecipe = this.recipeAO.getRecipe(recipeName);
         if (retrievedRecipe == null){
-            throw new Exception("RECIPE " + "\"" + recipeName + "\"" + " does not exist.");
+            System.out.println("RECIPE " + "\"" + recipeName + "\"" + " does not exist.");
+            return;
         }
         System.out.println("RECIPE " + "\"" + retrievedRecipe.getRecipeName() + "\"" + ":");
         System.out.println();
@@ -65,6 +67,7 @@ public class RetrieveRecipeInteractiveMenu implements Menu {
             }
             System.out.println("Step " + num + ": " + it.next());
             num+=1;
+            input = "";
         }
         System.out.println("END OF RECIPE.");
     }
