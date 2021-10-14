@@ -89,7 +89,7 @@ public class RecipeAOCSV implements RecipeAO {
             stringBuilder.append("\n");
             fw.write(stringBuilder.toString());
             fw.close();
-            System.out.println("RECIPE: " + "\n" + recipe.getRecipeName() + "CREATED SUCCESSFULLY.");
+            System.out.println("RECIPE: " + "\n" + recipe.getRecipeName() + " CREATED SUCCESSFULLY.");
         }
         //Check to ensure that if recipe already exists, no action is taken.
         else{
