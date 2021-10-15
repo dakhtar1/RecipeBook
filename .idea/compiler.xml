@@ -12,7 +12,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Recipe-Book" target="15" />
-      <module name="RecipeBook" target="15" />
+      <module name="RecipeBook" target="15.0.2" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -6,7 +6,7 @@ import java.util.List;
 //Compile this class
 public class Main {
     public static void main(String[] args) throws Exception {
-        RecipeAO recipeAOCSV = new RecipeAOCSV("../src/data/recipes.csv");
+        RecipeAO recipeAOCSV = new RecipeAOCSV("./src/data/recipes.csv");
         recipeAOCSV.initializeRecipesList();
         Menu exploreRecipesMenu = new ExploreRecipesMenu(recipeAOCSV);
         Menu retrieveRecipeMenu = new RetrieveRecipeMenu(recipeAOCSV);

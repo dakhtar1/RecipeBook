@@ -14,6 +14,7 @@ public class RecipeAOCSV implements RecipeAO {
     @Override
     public void initializeRecipesList() throws IOException {
         System.out.println("Initializing recipes list...");
+        System.out.println(this.filename);
         recipeList = new LinkedList<>();
         recipeMap = new HashMap<>();
         BufferedReader bf = new BufferedReader(new FileReader(this.filename));
