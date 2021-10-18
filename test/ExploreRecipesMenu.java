@@ -13,6 +13,7 @@ public class ExploreRecipesMenu implements Menu {
         for (Recipe recipe: recipeAO.getRecipes()) {
             System.out.println(recipe.getRecipeName());
         }
+        System.out.println();
     }
 
     @Override
