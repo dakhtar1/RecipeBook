@@ -1,7 +1,9 @@
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import java.util.*;
 public class MainGUI {
     public static void main(String[] args) throws Exception {
         RecipeAO recipeAOCSV = new RecipeAOCSV("src/data/recipes.csv");
@@ -20,6 +22,20 @@ public class MainGUI {
         f.setSize(1000, 800);
         f.setVisible(true);
         JTextArea textWelcome = new JTextArea("Welcome to the Recipe Book", 200, 200);
+
+        exploreRecipesMenu.show();
+        JLabel title = new JLabel("Recipe Name");
+        title.setBounds(400,100,80,25);
+        p.add(title);
+        List<String> recipeList = ExploreRecipesMenu.recipeListOutput;
+        int yPos = 100;
+        for (int i = 0; i < recipeList.size(); i++){
+            JLabel name = new JLabel(recipeList.get(i));
+            yPos += 50;
+            name.setBounds(400,yPos,80,25);
+            p.add(name);
+        }
+
 
         //Sizing and placing buttons on the panel
         JButton btnExplore = new JButton("Explore");

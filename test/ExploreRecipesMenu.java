@@ -1,10 +1,13 @@
 import java.io.IOException;
+import java.util.*;
 
 public class ExploreRecipesMenu implements Menu {
     RecipeAO recipeAO;
+    static List<String> recipeListOutput = new ArrayList<String>();
 
     public ExploreRecipesMenu(RecipeAO recipeAO) {
         this.recipeAO = recipeAO;
+
     }
 
     @Override
@@ -12,6 +15,7 @@ public class ExploreRecipesMenu implements Menu {
         System.out.println("RECIPES:");
         for (Recipe recipe : recipeAO.getRecipes()) {
             // Using getter() from Recipe.java
+            recipeListOutput.add(recipe.getRecipeName());
             System.out.println(recipe.getRecipeName());
             System.out.println();
         }

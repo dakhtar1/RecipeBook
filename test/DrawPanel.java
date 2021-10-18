@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 
 public class DrawPanel extends JPanel {
@@ -15,8 +16,9 @@ public class DrawPanel extends JPanel {
 
 	  g.fillRect(0, 0, 200, 1000);
   }
-   
-	  
-      
-  }
+
+
+    public void add(List<String> recipeListOutput) {
+    }
+}
  
