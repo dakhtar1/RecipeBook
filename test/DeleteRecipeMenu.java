@@ -17,17 +17,17 @@ public class DeleteRecipeMenu implements Menu {
 
     @Override
     public void createRecipe(Recipe recipe) throws Exception {
-
+        throw new Exception("Class DeleteRecipeMenu cannot call method \"createRecipe\".");
     }
 
     @Override
     public Recipe retrieveRecipe(String recipeName) throws Exception {
-        return null;
+        throw new Exception("Class DeleteRecipeMenu cannot call method \"retrieveRecipe\".");
     }
 
     @Override
     public void show_interactive(String recipeName) throws Exception {
-
+        throw new Exception("Class DeleteRecipeMenu cannot call method \"show_interactive\".");
     }
 
     @Override

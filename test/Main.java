@@ -34,6 +34,13 @@ public class Main {
       
         while (true){
             System.out.println("Please enter a command or press any other key to exit:");
+            System.out.println("1 - explore all recipes");
+            System.out.println("2 - retrieve a particular recipe");
+            System.out.println("3 - interactive recipe retrieval");
+            System.out.println("4 - create a recipe");
+            System.out.println("5 - delete a recipe");
+            System.out.println("Press any other key to exit.");
+            System.out.println();
             input = bf.readLine();
             if (input.equals("1")){
                 exploreRecipesMenu.show();

@@ -48,6 +48,7 @@ public class RecipeAOCSV implements RecipeAO {
             recipeMap.put(recipe.getRecipeName(), recipe);
         }
         System.out.println("Initialization complete.");
+        System.out.println();
     }
 
     // Create Recipe Function
@@ -90,11 +91,13 @@ public class RecipeAOCSV implements RecipeAO {
             stringBuilder.append("\n");
             fw.write(stringBuilder.toString());
             fw.close();
-            System.out.println("RECIPE: " + "\n" + recipe.getRecipeName() + "CREATED SUCCESSFULLY.");
+            System.out.println("RECIPE: " + "\"" + recipe.getRecipeName() + "\"" + " CREATED SUCCESSFULLY.");
+            System.out.println();
         }
         //Check to ensure that if recipe already exists, no action is taken.
         else{
             System.out.println("RECIPE: " + "\"" + recipe.getRecipeName() + "\"" + " already exists. NO ACTION TAKEN.");
+            System.out.println();
         }
     }
 
@@ -128,7 +131,9 @@ public class RecipeAOCSV implements RecipeAO {
         }
         fw.write(sb.toString());
         fw.close();
+        this.initializeRecipesList();
         System.out.println("RECIPE: " + "\"" + recipe_name + "\"" + " DELETED SUCCESSFULLY.");
+        System.out.println();
     }
 }
 

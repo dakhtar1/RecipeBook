@@ -10,11 +10,10 @@ public class ExploreRecipesMenu implements Menu {
     @Override
     public void show() {
         System.out.println("RECIPES:");
-        for (Recipe recipe : recipeAO.getRecipes()) {
-            // Using getter() from Recipe.java
+        for (Recipe recipe: recipeAO.getRecipes()) {
             System.out.println(recipe.getRecipeName());
-            System.out.println();
         }
+        System.out.println();
     }
 
     @Override
