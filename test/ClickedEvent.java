@@ -24,6 +24,7 @@ public class ClickedEvent implements ActionListener {
 		if (btntext.contains("Explore")){
 			inaction.show();
 		}
+
 		else if (btntext.contains("Retrieve")) {
 			inaction.show();
 			String recipe = JOptionPane.showInputDialog(null, "Please enter the name of the recipe to retrieve:");

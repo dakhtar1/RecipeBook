@@ -22,10 +22,10 @@ public class MainGUI {
         JTabbedPane tabbedPane = new JTabbedPane();
         f.add(tabbedPane);
 
-        JLabel explore = new JLabel();
-        JPanel retrieve = new JPanel();
-        JLabel create = new JLabel();
-        JLabel delete = new JLabel();
+        JPanel explore = new JPanel(null);
+        JPanel retrieve = new JPanel(null);
+        JPanel create = new JPanel(null);
+        JPanel delete = new JPanel(null);
 
         tabbedPane.add("Explore", explore);
         tabbedPane.add("Retrieve", retrieve);
@@ -52,16 +52,59 @@ public class MainGUI {
         String searchedRecipe;
         JTextField field = new JTextField(20);
         JLabel retrieveTitle = new JLabel("Recipe Search: ");
+        JLabel test1 = new JLabel("TEST");
         JButton search = new JButton("Search");
+
+        int navbarX = 25;
+        int navbarY = 10;
+        retrieveTitle.setBounds(navbarX,navbarY,100,25);
+        field.setBounds(navbarX+100,navbarY,200,25);
+        search.setBounds(navbarX+300,navbarY,100,25);
+
         retrieve.add(retrieveTitle);
         retrieve.add(field);
         retrieve.add(search);
+
+        test1.setBackground(Color.RED);
+
 
         search.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 String searchedRecipe = field.getText();
                 System.out.println(searchedRecipe);
+                Recipe returnedRecipe = recipeAOCSV.getRecipe(searchedRecipe);
+                if (returnedRecipe != null){
+                    JLabel recipeName = new JLabel(returnedRecipe.getRecipeName());
+                    recipeName.setBounds(navbarX, navbarY+10, 100, 100);
+                    recipeName.setFont(new Font("Calibri", Font.BOLD, 25));
+                    retrieve.add(recipeName);
+
+                    JLabel ingredientsTitle = new JLabel("Ingredients: ");
+                    ingredientsTitle.setBounds(navbarX, navbarY+35, 100, 100);
+                    ingredientsTitle.setFont(new Font("Calibri", Font.BOLD, 18));
+                    retrieve.add(ingredientsTitle);
+
+                    int ingredientX = navbarX+15;
+                    int ingredientY = navbarY+35;
+                    List ingList = returnedRecipe.getIngredients();
+                    for (int n = 0; n < ingList.size(); n++){
+                        ingredientY += 15;
+
+                        List ingData = (List)ingList.get(n);
+                        String ingredientStr = String.join("  ", ingData);
+                        JLabel ing = new JLabel(ingredientStr);
+                        ing.setBounds(ingredientX, ingredientY, 100, 100);
+                        retrieve.add(ing);
+                    }
+
+                    System.out.println(returnedRecipe.getRecipeName());
+                    System.out.println(returnedRecipe.getDirections());
+                    System.out.println(returnedRecipe.getIngredients());
+                }
+                else{
+                    System.out.println("This recipe does not exist");
+                }
             }
         });
 
