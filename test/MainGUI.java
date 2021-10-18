@@ -16,93 +16,38 @@ public class MainGUI {
 
         //DrawPanel p = new DrawPanel();
         JFrame f = new JFrame("Recipe Book");
-        JPanel explore = new JPanel();
-        JPanel retrieve = new JPanel();
-        JPanel create = new JPanel();
-        JPanel delete = new JPanel();
-        JPanel navbar = new JPanel();
-        JPanel content = new JPanel();
-        JPanel info = new JPanel();
-        JPanel tabs = new JPanel();
+
         CardLayout cl = new CardLayout();
 
-        content.setLayout(cl);
+        JTabbedPane tabbedPane = new JTabbedPane();
+        f.add(tabbedPane);
 
-        //f.add(p);
+        JLabel explore = new JLabel();
+        JLabel retrieve = new JLabel();
+        JLabel create = new JLabel();
+        JLabel delete = new JLabel();
+
+        tabbedPane.add("Explore", explore);
+        tabbedPane.add("Retrieve", retrieve);
+        tabbedPane.add("Create", create);
+        tabbedPane.add("Delete", delete);
 
 
-        /*
+
         exploreRecipesMenu.show();
         JLabel title = new JLabel("Recipe Name");
-        title.setBounds(400,100,80,25);
-        p.add(title);
-        List<String> recipeList = ExploreRecipesMenu.recipeListOutput;
-        int yPos = 100;
-        for (int i = 0; i < recipeList.size(); i++){
-            JLabel name = new JLabel(recipeList.get(i));
-            yPos += 50;
-            name.setBounds(400,yPos,80,25);
-            p.add(name);
-        }
-*/
-
-
-        //Sizing and placing buttons on the panel
-        JButton btnExplore = new JButton("Explore");
-        btnExplore.setBounds(25,50,150,40);
-        JButton btnRetrieve = new JButton("Retrieve");
-
-        btnRetrieve.setBounds(25,200,150,40);
-        JButton btnInteractive = new JButton("Interactive Retrieval");
-
-        btnInteractive.setBounds(25,350,150,40);
-        JButton btnCreate = new JButton("Create");
-
-        btnCreate.setBounds(25,500,150,40);
-        JButton btnDelete = new JButton("Delete");
-
-        btnDelete.setBounds(25, 650, 150, 40);
-
-        explore.setBackground(Color.RED);
-        retrieve.setBackground(Color.GREEN);
-        create.setBackground(Color.BLUE);
-        delete.setBackground(Color.ORANGE);
-
-        content.setLayout(new GridLayout());
-        navbar.setLayout(new GridLayout());
-        tabs.setLayout(new CardLayout());
-        navbar.add(btnExplore);
-        navbar.add(btnRetrieve);
-        navbar.add(btnCreate);
-        navbar.add(btnDelete);
-        content.add(navbar);
-
-
-        explore.setLayout(null);
-        exploreRecipesMenu.show();
-        JLabel title = new JLabel("Recipe Name");
-        int yPos = 50;
-        title.setBounds(50,yPos,80,25);
+        title.setBounds(25,25,80,25);
         explore.add(title);
         List<String> recipeList = ExploreRecipesMenu.recipeListOutput;
-
+        int yPos = 25;
         for (int i = 0; i < recipeList.size(); i++){
             JLabel name = new JLabel(recipeList.get(i));
-            yPos += 25;
-            name.setBounds(100,yPos,80,25);
+            yPos += 15;
+            name.setBounds(50,yPos,80,25);
             explore.add(name);
         }
 
-        tabs.add(explore, "1");
-        tabs.add(retrieve, "2");
-        tabs.add(create, "3");
-        tabs.add(delete, "4");
 
-        content.add(tabs);
-
-        f.add(content);
-
-        cl.show(tabs, "1");
 
         f.pack();
 
