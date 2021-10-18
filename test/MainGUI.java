@@ -23,7 +23,7 @@ public class MainGUI {
         f.add(tabbedPane);
 
         JLabel explore = new JLabel();
-        JLabel retrieve = new JLabel();
+        JPanel retrieve = new JPanel();
         JLabel create = new JLabel();
         JLabel delete = new JLabel();
 
@@ -33,7 +33,7 @@ public class MainGUI {
         tabbedPane.add("Delete", delete);
 
 
-
+        // Explore Tab
         exploreRecipesMenu.show();
         JLabel title = new JLabel("Recipe Name");
         title.setBounds(25,25,80,25);
@@ -46,6 +46,30 @@ public class MainGUI {
             name.setBounds(50,yPos,80,25);
             explore.add(name);
         }
+
+        // Retrieve Tab
+        //   search the recipe by name
+        String searchedRecipe;
+        JTextField field = new JTextField(20);
+        JLabel retrieveTitle = new JLabel("Recipe Search: ");
+        JButton search = new JButton("Search");
+        retrieve.add(retrieveTitle);
+        retrieve.add(field);
+        retrieve.add(search);
+
+        search.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                String searchedRecipe = field.getText();
+                System.out.println(searchedRecipe);
+            }
+        });
+
+
+        // Create Tab
+        //  you input the name, ingredients, and steps for the recipe
+        // Delete Tab
+        //  Textbox where you input the name of the recipe you want to delete
 
 
 
