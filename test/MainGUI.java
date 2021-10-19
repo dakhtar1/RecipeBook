@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.*;
+import java.io.IOException;
 import java.util.List;
 import java.awt.*;
 import java.awt.event.*;
@@ -30,24 +32,52 @@ public class MainGUI {
         tabbedPane.add("Explore", explore);
         tabbedPane.add("Retrieve", retrieve);
         tabbedPane.add("Create", create);
-        tabbedPane.add("Delete", delete);
 
 
         // Explore Tab
+
         exploreRecipesMenu.show();
-        JLabel title = new JLabel("Recipe Name");
+        JPanel recipeListDisp = new JPanel(null);
+        JLabel title = new JLabel("Saved Recipes :");
         title.setBounds(25,25,80,25);
         explore.add(title);
-        List<String> recipeList = ExploreRecipesMenu.recipeListOutput;
+        List<Recipe> recipeList = recipeAOCSV.getRecipes();
+        System.out.println(recipeList);
         int yPos = 25;
+        //System.out.println(recipeList.size());
         for (int i = 0; i < recipeList.size(); i++){
-            JLabel name = new JLabel(recipeList.get(i));
+            System.out.println(recipeList.get(i).getRecipeName());
+            JLabel name = new JLabel(recipeList.get(i).getRecipeName().toString());
             yPos += 15;
-            name.setBounds(50,yPos,80,25);
+            name.setBounds(50,yPos,200,25);
             explore.add(name);
         }
 
-        // Retrieve Tab
+        tabbedPane.addChangeListener(new ChangeListener(){
+            public void stateChanged(ChangeEvent e) {
+                explore.removeAll();
+
+                JPanel recipeListDisp = new JPanel(null);
+                JLabel title = new JLabel("Saved Recipes :");
+                title.setBounds(25,25,200,25);
+                explore.add(title);
+                List<Recipe> recipeList = recipeAOCSV.getRecipes();
+                System.out.println(recipeList);
+                int yPos = 25;
+                //System.out.println(recipeList.size());
+                for (int i = 0; i < recipeList.size(); i++){
+                    System.out.println(recipeList.get(i).getRecipeName());
+                    JLabel name = new JLabel(recipeList.get(i).getRecipeName().toString());
+                    yPos += 15;
+                    name.setBounds(50,yPos,200,25);
+                    explore.add(name);
+                }
+            }
+
+        });
+
+
+                // Retrieve Tab
         //   search the recipe by name
         String searchedRecipe;
         JTextField field = new JTextField(20);
@@ -80,13 +110,13 @@ public class MainGUI {
                 Recipe returnedRecipe = recipeAOCSV.getRecipe(searchedRecipe);
                 if (returnedRecipe != null){
                     JLabel recipeName = new JLabel(returnedRecipe.getRecipeName());
-                    recipeName.setBounds(navbarX, navbarY+10, 100, 100);
+                    recipeName.setBounds(navbarX, navbarY+10, 500, 100);
                     recipeName.setFont(new Font("Calibri", Font.BOLD, 25));
                     recipeInfo.add(recipeName);
 
                     //Ingredients
                     JLabel ingredientsTitle = new JLabel("Ingredients: ");
-                    ingredientsTitle.setBounds(navbarX, navbarY+35, 100, 100);
+                    ingredientsTitle.setBounds(navbarX, navbarY+35, 500, 100);
                     ingredientsTitle.setFont(new Font("Calibri", Font.BOLD, 18));
                     recipeInfo.add(ingredientsTitle);
 
@@ -99,7 +129,7 @@ public class MainGUI {
                         List ingData = (List)ingList.get(n);
                         String ingredientStr = String.join("  ", ingData);
                         JLabel ing = new JLabel(ingredientStr);
-                        ing.setBounds(ingredientX, ingredientY, 100, 100);
+                        ing.setBounds(ingredientX, ingredientY, 500, 100);
                         recipeInfo.add(ing);
                     }
 
@@ -114,17 +144,35 @@ public class MainGUI {
                         ingredientY += 15;
                         int setpCount = m+1;
                         JLabel dirLabel = new JLabel("Step " + setpCount +": ");
-                        JLabel dir = new JLabel((String)dirList.get(m));
+                        JLabel dir = new JLabel("<html>"+(String)dirList.get(m)+"<html>");
                         dirLabel.setBounds(ingredientX, ingredientY, 100, 100);
                         ingredientY += 15;
-                        dir.setBounds(ingredientX+15, ingredientY, 100, 100);
+                        dir.setBounds(ingredientX+15, ingredientY, 1000, 100);
                         recipeInfo.add(dirLabel);
                         recipeInfo.add(dir);
 
                     }
-                    recipeInfo.revalidate();
-                    recipeInfo.repaint();
+
                     retrieve.repaint();
+
+                    JButton deleteRecipeBtn = new JButton("Delete");
+                    deleteRecipeBtn.setBounds(ingredientX, ingredientY+100, 100, 25);
+                    recipeInfo.add(deleteRecipeBtn);
+
+                    deleteRecipeBtn.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                recipeAOCSV.deleteRecipe(searchedRecipe);
+                                recipeInfo.removeAll();
+                                retrieve.repaint();
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+                    });
+                    retrieve.repaint();
+
 
                     System.out.println(returnedRecipe.getRecipeName());
                     System.out.println(returnedRecipe.getDirections());
@@ -139,6 +187,78 @@ public class MainGUI {
 
         // Create Tab
         //  you input the name, ingredients, and steps for the recipe
+        JLabel newNameLabel = new JLabel("New Recipe Name: ");
+        newNameLabel.setBounds(25 , 10, 200, 25);
+
+        JTextField newName = new JTextField(30);
+        newName.setBounds(135 , 10, 100, 25);
+
+        create.add(newNameLabel);
+        create.add(newName);
+
+        JLabel newIngredientLabel = new JLabel("Ingredients: ");
+        JTextArea newIngredients = new JTextArea(5, 30);
+        newIngredients.setLineWrap(true);
+        JScrollPane ingScrollPane = new JScrollPane(newIngredients);
+        ingScrollPane.setVerticalScrollBarPolicy(
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        ingScrollPane.setPreferredSize(new Dimension(100, 140));
+
+        newIngredientLabel.setBounds(25 , 35, 200, 25);
+        ingScrollPane.setBounds(135 , 40, 100, 140);
+
+        create.add(newIngredientLabel);
+        create.add(ingScrollPane);
+
+        JLabel newDirectionsLabel = new JLabel("Directions: ");
+        JTextArea newDirections = new JTextArea(5, 30);
+        newDirections.setLineWrap(true);
+
+        JScrollPane dirScrollPane = new JScrollPane(newDirections);
+        dirScrollPane.setVerticalScrollBarPolicy(
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        dirScrollPane.setPreferredSize(new Dimension(300, 150));
+
+        newDirectionsLabel.setBounds(25 , 180, 200, 25);
+        dirScrollPane.setBounds(135 , 185, 300, 150);
+
+
+        create.add(newDirectionsLabel);
+        create.add(dirScrollPane);
+
+        JButton addRecipeBtn = new JButton("Add Recipe");
+        addRecipeBtn.setBounds(135, 350, 100, 25);
+        create.add(addRecipeBtn);
+
+        addRecipeBtn.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                String newRecipeNameStr = newName.getText();
+                String newRecipeIngStr = newIngredients.getText();
+                String newRecipeDirStr = newDirections.getText();
+
+                List<String> ingList = Arrays.asList(newRecipeIngStr.split("\n",0));
+                List<List<String>> ingListFinal = new ArrayList<>();
+                for (int i=0; i< ingList.size(); i++){
+                    ingListFinal.add(Arrays.asList(ingList.get(i).split(" ", 0)));
+                }
+                List<String> dirList = Arrays.asList(newRecipeDirStr.split("\n\n",0));
+
+                System.out.println(newRecipeNameStr);
+                System.out.println(ingListFinal);
+                System.out.println(dirList);
+                Recipe newRecipe = new Recipe(newRecipeNameStr, ingListFinal, dirList);
+                try {
+                    recipeAOCSV.createRecipe(newRecipe);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    System.out.println("ERROR");
+                }
+
+            }
+        });
+
+
         // Delete Tab
         //  Textbox where you input the name of the recipe you want to delete
 
