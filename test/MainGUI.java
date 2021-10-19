@@ -59,7 +59,7 @@ public class MainGUI {
 
                 JPanel recipeListDisp = new JPanel(null);
                 JLabel title = new JLabel("Saved Recipes :");
-                title.setBounds(25,25,80,25);
+                title.setBounds(25,25,200,25);
                 explore.add(title);
                 List<Recipe> recipeList = recipeAOCSV.getRecipes();
                 System.out.println(recipeList);
@@ -144,10 +144,10 @@ public class MainGUI {
                         ingredientY += 15;
                         int setpCount = m+1;
                         JLabel dirLabel = new JLabel("Step " + setpCount +": ");
-                        JLabel dir = new JLabel((String)dirList.get(m));
+                        JLabel dir = new JLabel("<html>"+(String)dirList.get(m)+"<html>");
                         dirLabel.setBounds(ingredientX, ingredientY, 100, 100);
                         ingredientY += 15;
-                        dir.setBounds(ingredientX+15, ingredientY, 100, 100);
+                        dir.setBounds(ingredientX+15, ingredientY, 1000, 100);
                         recipeInfo.add(dirLabel);
                         recipeInfo.add(dir);
 
