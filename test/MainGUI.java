@@ -30,7 +30,6 @@ public class MainGUI {
         tabbedPane.add("Explore", explore);
         tabbedPane.add("Retrieve", retrieve);
         tabbedPane.add("Create", create);
-        tabbedPane.add("Delete", delete);
 
 
         // Explore Tab
@@ -122,8 +121,7 @@ public class MainGUI {
                         recipeInfo.add(dir);
 
                     }
-                    recipeInfo.revalidate();
-                    recipeInfo.repaint();
+
                     retrieve.repaint();
 
                     System.out.println(returnedRecipe.getRecipeName());
@@ -139,6 +137,39 @@ public class MainGUI {
 
         // Create Tab
         //  you input the name, ingredients, and steps for the recipe
+        JLabel newNameLabel = new JLabel("New Recipe Name: ");
+        newNameLabel.setBounds(25 , 10, 200, 25);
+
+        JTextField newName = new JTextField(30);
+        newName.setBounds(135 , 10, 100, 25);
+
+        create.add(newNameLabel);
+        create.add(newName);
+
+        JLabel newIngredientLabel = new JLabel("Ingredients: ");
+        JTextArea newIngredients = new JTextArea(5, 30);
+
+        newIngredientLabel.setBounds(25 , 35, 200, 25);
+        newIngredients.setBounds(135 , 40, 100, 140);
+
+        create.add(newIngredientLabel);
+        create.add(newIngredients);
+
+        JLabel newDirectionsLabel = new JLabel("Directions: ");
+        JTextArea newDirections = new JTextArea(5, 30);
+
+        newDirectionsLabel.setBounds(25 , 180, 200, 25);
+        newDirections.setBounds(135 , 185, 300, 150);
+        newDirections.setLineWrap(true);
+
+        create.add(newDirectionsLabel);
+        create.add(newDirections);
+
+        JButton addRecipeBtn = new JButton("Add Recipe");
+        addRecipeBtn.setBounds(135, 350, 100, 25);
+        create.add(addRecipeBtn);
+
+
         // Delete Tab
         //  Textbox where you input the name of the recipe you want to delete
 
