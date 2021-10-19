@@ -54,19 +54,16 @@ public class MainGUI {
         JLabel retrieveTitle = new JLabel("Recipe Search: ");
         JLabel test1 = new JLabel("TEST");
         JButton search = new JButton("Search");
-        JPanel recipeInfo = new JPanel(null);
 
         int navbarX = 25;
         int navbarY = 10;
         retrieveTitle.setBounds(navbarX,navbarY,100,25);
         field.setBounds(navbarX+100,navbarY,200,25);
         search.setBounds(navbarX+300,navbarY,100,25);
-        recipeInfo.setBounds(navbarX, navbarY, 500, 1000 );
-        //recipeInfo.setBackground(Color.DARK_GRAY);
+
         retrieve.add(retrieveTitle);
         retrieve.add(field);
         retrieve.add(search);
-        retrieve.add(recipeInfo);
 
         test1.setBackground(Color.RED);
 
@@ -74,7 +71,6 @@ public class MainGUI {
         search.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                recipeInfo.removeAll();
                 String searchedRecipe = field.getText();
                 System.out.println(searchedRecipe);
                 Recipe returnedRecipe = recipeAOCSV.getRecipe(searchedRecipe);
@@ -82,13 +78,12 @@ public class MainGUI {
                     JLabel recipeName = new JLabel(returnedRecipe.getRecipeName());
                     recipeName.setBounds(navbarX, navbarY+10, 100, 100);
                     recipeName.setFont(new Font("Calibri", Font.BOLD, 25));
-                    recipeInfo.add(recipeName);
+                    retrieve.add(recipeName);
 
-                    //Ingredients
                     JLabel ingredientsTitle = new JLabel("Ingredients: ");
                     ingredientsTitle.setBounds(navbarX, navbarY+35, 100, 100);
                     ingredientsTitle.setFont(new Font("Calibri", Font.BOLD, 18));
-                    recipeInfo.add(ingredientsTitle);
+                    retrieve.add(ingredientsTitle);
 
                     int ingredientX = navbarX+15;
                     int ingredientY = navbarY+35;
@@ -100,31 +95,8 @@ public class MainGUI {
                         String ingredientStr = String.join("  ", ingData);
                         JLabel ing = new JLabel(ingredientStr);
                         ing.setBounds(ingredientX, ingredientY, 100, 100);
-                        recipeInfo.add(ing);
+                        retrieve.add(ing);
                     }
-
-                    //Directions
-                    JLabel directionsTitle = new JLabel("Directions: ");
-                    directionsTitle.setBounds(ingredientX-15, ingredientY+35, 100, 100);
-                    directionsTitle.setFont(new Font("Calibri", Font.BOLD, 18));
-                    recipeInfo.add(directionsTitle);
-                    ingredientY = ingredientY+35;
-                    List dirList = returnedRecipe.getDirections();
-                    for (int m = 0; m < dirList.size(); m++){
-                        ingredientY += 15;
-                        int setpCount = m+1;
-                        JLabel dirLabel = new JLabel("Step " + setpCount +": ");
-                        JLabel dir = new JLabel((String)dirList.get(m));
-                        dirLabel.setBounds(ingredientX, ingredientY, 100, 100);
-                        ingredientY += 15;
-                        dir.setBounds(ingredientX+15, ingredientY, 100, 100);
-                        recipeInfo.add(dirLabel);
-                        recipeInfo.add(dir);
-
-                    }
-                    recipeInfo.revalidate();
-                    recipeInfo.repaint();
-                    retrieve.repaint();
 
                     System.out.println(returnedRecipe.getRecipeName());
                     System.out.println(returnedRecipe.getDirections());
