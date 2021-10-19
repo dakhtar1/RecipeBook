@@ -28,11 +28,12 @@ public class MainGUI {
         JPanel retrieve = new JPanel(null);
         JPanel create = new JPanel(null);
         JPanel delete = new JPanel(null);
+        JPanel interactive = new JPanel(null);
 
         tabbedPane.add("Explore", explore);
         tabbedPane.add("Retrieve", retrieve);
         tabbedPane.add("Create", create);
-
+        tabbedPane.add("Interactive", interactive);
 
         // Explore Tab
 
@@ -307,5 +308,109 @@ public class MainGUI {
         btnCreate.addActionListener(createClicked);
         btnDelete.addActionListener(deleteClicked);
         f.repaint();*/
+
+        // Retrieve Tab
+        //   search the recipe by name
+        String searchedRecipeInteractive;
+        JTextField fieldInteractive = new JTextField(20);
+        JLabel retrieveTitleInteractive = new JLabel("Recipe Search: ");
+        JLabel test1Interactive = new JLabel("TEST");
+        JButton searchInteractive = new JButton("Search");
+        JPanel recipeInfoInteractive = new JPanel(null);
+        JButton next = new JButton("Next direction");
+
+        int navbarXInteractive = 25;
+        int navbarYInteractive = 10;
+        retrieveTitleInteractive.setBounds(navbarX,navbarY,100,25);
+        fieldInteractive.setBounds(navbarX+100,navbarY,200,25);
+        searchInteractive.setBounds(navbarX+300,navbarY,100,25);
+        next.setBounds(navbarX+500,navbarY,200,25);
+        recipeInfoInteractive.setBounds(navbarX, navbarY, 500, 1000 );
+        //recipeInfo.setBackground(Color.DARK_GRAY);
+        interactive.add(retrieveTitleInteractive);
+        interactive.add(fieldInteractive);
+        interactive.add(searchInteractive);
+        interactive.add(recipeInfoInteractive);
+        interactive.add(next);
+
+        test1Interactive.setBackground(Color.RED);
+
+
+        searchInteractive.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                recipeInfoInteractive.removeAll();
+                String searchedRecipe = fieldInteractive.getText();
+                System.out.println(searchedRecipe);
+                Recipe returnedRecipe = recipeAOCSV.getRecipe(searchedRecipe);
+                if (returnedRecipe != null){
+                    JLabel recipeName = new JLabel(returnedRecipe.getRecipeName());
+                    recipeName.setBounds(navbarX, navbarY+10, 500, 100);
+                    recipeName.setFont(new Font("Calibri", Font.BOLD, 25));
+                    recipeInfoInteractive.add(recipeName);
+
+                    //Ingredients
+                    JLabel ingredientsTitle = new JLabel("Ingredients: ");
+                    ingredientsTitle.setBounds(navbarX, navbarY+35, 500, 100);
+                    ingredientsTitle.setFont(new Font("Calibri", Font.BOLD, 18));
+                    recipeInfoInteractive.add(ingredientsTitle);
+
+                    int ingredientX = navbarX+15;
+                    int ingredientY = navbarY+35;
+                    List ingList = returnedRecipe.getIngredients();
+                    for (int n = 0; n < ingList.size(); n++){
+                        ingredientY += 15;
+
+                        List ingData = (List)ingList.get(n);
+                        String ingredientStr = String.join("  ", ingData);
+                        JLabel ing = new JLabel(ingredientStr);
+                        ing.setBounds(ingredientX, ingredientY, 500, 100);
+                        recipeInfoInteractive.add(ing);
+                    }
+
+                    //Directions
+                    JLabel directionsTitle = new JLabel("Directions: ");
+                    directionsTitle.setBounds(ingredientX-15, ingredientY+35, 100, 100);
+                    directionsTitle.setFont(new Font("Calibri", Font.BOLD, 18));
+                    recipeInfo.add(directionsTitle);
+                    ingredientY = ingredientY+35;
+                    int finalIngredientY = ingredientY;
+                    next.addActionListener(new ActionListener() {
+                        int ingredX = ingredientX;
+                        int ingredY = finalIngredientY;
+                        List<String> dirList = returnedRecipe.getDirections();
+                        Iterator<String> directions = dirList.iterator();
+                        int count = 1;
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                JLabel dirLabel = new JLabel("Step " + count++ + ": ");
+                                JLabel dir = new JLabel("<html>" + (String) this.directions.next() + "<html>");
+                                dirLabel.setBounds(ingredX, ingredY+30, 100, 100);
+                                dir.setBounds(ingredX, ingredY+50, 1000, 100);
+                                recipeInfoInteractive.add(dirLabel);
+                                recipeInfoInteractive.add(dir);
+                                ingredY+=40;
+                                interactive.repaint();
+                            }
+                            catch(Exception exception){
+                                interactive.remove(next);
+                                interactive.repaint();
+                            }
+                        }
+                    });
+
+                    interactive.repaint();
+
+
+                    System.out.println(returnedRecipe.getRecipeName());
+                    System.out.println(returnedRecipe.getDirections());
+                    System.out.println(returnedRecipe.getIngredients());
+                }
+                else{
+                    System.out.println("This recipe does not exist");
+                }
+            }
+        });
     }
 }
