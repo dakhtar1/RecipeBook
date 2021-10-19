@@ -33,18 +33,25 @@ public class MainGUI {
 
 
         // Explore Tab
+
         exploreRecipesMenu.show();
+        JPanel recipeListDisp = new JPanel(null);
         JLabel title = new JLabel("Recipe Name");
         title.setBounds(25,25,80,25);
         explore.add(title);
-        List<String> recipeList = ExploreRecipesMenu.recipeListOutput;
+        List<Recipe> recipeList = recipeAOCSV.getRecipes();
+        System.out.println(recipeList);
         int yPos = 25;
+        //System.out.println(recipeList.size());
         for (int i = 0; i < recipeList.size(); i++){
-            JLabel name = new JLabel(recipeList.get(i));
+            System.out.println(recipeList.get(i).getRecipeName());
+            JLabel name = new JLabel(recipeList.get(i).getRecipeName().toString());
             yPos += 15;
-            name.setBounds(50,yPos,80,25);
+            name.setBounds(50,yPos,200,25);
             explore.add(name);
         }
+        //explore.add(recipeListDisp);
+
 
         // Retrieve Tab
         //   search the recipe by name
@@ -79,13 +86,13 @@ public class MainGUI {
                 Recipe returnedRecipe = recipeAOCSV.getRecipe(searchedRecipe);
                 if (returnedRecipe != null){
                     JLabel recipeName = new JLabel(returnedRecipe.getRecipeName());
-                    recipeName.setBounds(navbarX, navbarY+10, 100, 100);
+                    recipeName.setBounds(navbarX, navbarY+10, 500, 100);
                     recipeName.setFont(new Font("Calibri", Font.BOLD, 25));
                     recipeInfo.add(recipeName);
 
                     //Ingredients
                     JLabel ingredientsTitle = new JLabel("Ingredients: ");
-                    ingredientsTitle.setBounds(navbarX, navbarY+35, 100, 100);
+                    ingredientsTitle.setBounds(navbarX, navbarY+35, 500, 100);
                     ingredientsTitle.setFont(new Font("Calibri", Font.BOLD, 18));
                     recipeInfo.add(ingredientsTitle);
 
@@ -98,7 +105,7 @@ public class MainGUI {
                         List ingData = (List)ingList.get(n);
                         String ingredientStr = String.join("  ", ingData);
                         JLabel ing = new JLabel(ingredientStr);
-                        ing.setBounds(ingredientX, ingredientY, 100, 100);
+                        ing.setBounds(ingredientX, ingredientY, 500, 100);
                         recipeInfo.add(ing);
                     }
 
