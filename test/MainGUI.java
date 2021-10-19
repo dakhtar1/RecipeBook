@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.*;
+import java.io.IOException;
 import java.util.List;
 import java.awt.*;
 import java.awt.event.*;
@@ -36,7 +38,7 @@ public class MainGUI {
 
         exploreRecipesMenu.show();
         JPanel recipeListDisp = new JPanel(null);
-        JLabel title = new JLabel("Recipe Name");
+        JLabel title = new JLabel("Saved Recipes :");
         title.setBounds(25,25,80,25);
         explore.add(title);
         List<Recipe> recipeList = recipeAOCSV.getRecipes();
@@ -50,10 +52,32 @@ public class MainGUI {
             name.setBounds(50,yPos,200,25);
             explore.add(name);
         }
-        //explore.add(recipeListDisp);
+
+        tabbedPane.addChangeListener(new ChangeListener(){
+            public void stateChanged(ChangeEvent e) {
+                explore.removeAll();
+
+                JPanel recipeListDisp = new JPanel(null);
+                JLabel title = new JLabel("Saved Recipes :");
+                title.setBounds(25,25,80,25);
+                explore.add(title);
+                List<Recipe> recipeList = recipeAOCSV.getRecipes();
+                System.out.println(recipeList);
+                int yPos = 25;
+                //System.out.println(recipeList.size());
+                for (int i = 0; i < recipeList.size(); i++){
+                    System.out.println(recipeList.get(i).getRecipeName());
+                    JLabel name = new JLabel(recipeList.get(i).getRecipeName().toString());
+                    yPos += 15;
+                    name.setBounds(50,yPos,200,25);
+                    explore.add(name);
+                }
+            }
+
+        });
 
 
-        // Retrieve Tab
+                // Retrieve Tab
         //   search the recipe by name
         String searchedRecipe;
         JTextField field = new JTextField(20);
@@ -130,6 +154,25 @@ public class MainGUI {
                     }
 
                     retrieve.repaint();
+
+                    JButton deleteRecipeBtn = new JButton("Delete");
+                    deleteRecipeBtn.setBounds(ingredientX, ingredientY+100, 100, 25);
+                    recipeInfo.add(deleteRecipeBtn);
+
+                    deleteRecipeBtn.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                recipeAOCSV.deleteRecipe(searchedRecipe);
+                                recipeInfo.removeAll();
+                                retrieve.repaint();
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+                    });
+                    retrieve.repaint();
+
 
                     System.out.println(returnedRecipe.getRecipeName());
                     System.out.println(returnedRecipe.getDirections());
