@@ -331,7 +331,6 @@ public class MainGUI {
         interactive.add(fieldInteractive);
         interactive.add(searchInteractive);
         interactive.add(recipeInfoInteractive);
-        interactive.add(next);
 
         test1Interactive.setBackground(Color.RED);
 
@@ -367,6 +366,7 @@ public class MainGUI {
                         ing.setBounds(ingredientX, ingredientY, 500, 100);
                         recipeInfoInteractive.add(ing);
                     }
+                    interactive.add(next);
 
                     //Directions
                     JLabel directionsTitle = new JLabel("Directions: ");
