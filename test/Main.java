@@ -42,9 +42,11 @@ public class Main {
             System.out.println("Press any other key to exit.");
             System.out.println();
             input = bf.readLine();
+            // OPTION 1
             if (input.equals("1")){
                 exploreRecipesMenu.show();
             }
+            // OPTION 2
             else if (input.equals("2")){
                 retrieveRecipeMenu.show();
                 System.out.println("Please enter the name of the recipe to retrieve:");
@@ -57,12 +59,14 @@ public class Main {
                     System.out.println("RECIPE " + "\"" + recipe + "\"" + " does not exist!");
                 }
             }
+            // OPTION 3
             else if (input.equals("3")){
                 retrieveRecipeInteractiveMenu.show();
                 System.out.println("Please enter the name of the recipe to retrieve:");
                 String recipe = bf.readLine();
                 retrieveRecipeInteractiveMenu.show_interactive(recipe);
             }
+            // OPTION 4
             else if (input.equals("4")){
                 createRecipeMenu.show();
                 System.out.println("Please enter the name of the recipe to create:");
@@ -71,6 +75,7 @@ public class Main {
                 List<String> directionsList = RecipeInputRetrieval.retrieveDirectionsList();
                 createRecipeMenu.createRecipe(new Recipe(recipeName, ingredientsList, directionsList));
             }
+            // OPTION 5
             else if (input.equals("5")){
                 deleteRecipeMenu.show();
                 System.out.println("Please enter the name of the recipe to delete");
