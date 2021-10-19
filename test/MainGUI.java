@@ -148,26 +148,65 @@ public class MainGUI {
 
         JLabel newIngredientLabel = new JLabel("Ingredients: ");
         JTextArea newIngredients = new JTextArea(5, 30);
+        newIngredients.setLineWrap(true);
+        JScrollPane ingScrollPane = new JScrollPane(newIngredients);
+        ingScrollPane.setVerticalScrollBarPolicy(
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        ingScrollPane.setPreferredSize(new Dimension(100, 140));
 
         newIngredientLabel.setBounds(25 , 35, 200, 25);
-        newIngredients.setBounds(135 , 40, 100, 140);
+        ingScrollPane.setBounds(135 , 40, 100, 140);
 
         create.add(newIngredientLabel);
-        create.add(newIngredients);
+        create.add(ingScrollPane);
 
         JLabel newDirectionsLabel = new JLabel("Directions: ");
         JTextArea newDirections = new JTextArea(5, 30);
-
-        newDirectionsLabel.setBounds(25 , 180, 200, 25);
-        newDirections.setBounds(135 , 185, 300, 150);
         newDirections.setLineWrap(true);
 
+        JScrollPane dirScrollPane = new JScrollPane(newDirections);
+        dirScrollPane.setVerticalScrollBarPolicy(
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        dirScrollPane.setPreferredSize(new Dimension(300, 150));
+
+        newDirectionsLabel.setBounds(25 , 180, 200, 25);
+        dirScrollPane.setBounds(135 , 185, 300, 150);
+
+
         create.add(newDirectionsLabel);
-        create.add(newDirections);
+        create.add(dirScrollPane);
 
         JButton addRecipeBtn = new JButton("Add Recipe");
         addRecipeBtn.setBounds(135, 350, 100, 25);
         create.add(addRecipeBtn);
+
+        addRecipeBtn.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                String newRecipeNameStr = newName.getText();
+                String newRecipeIngStr = newIngredients.getText();
+                String newRecipeDirStr = newDirections.getText();
+
+                List<String> ingList = Arrays.asList(newRecipeIngStr.split("\n",0));
+                List<List<String>> ingListFinal = new ArrayList<>();
+                for (int i=0; i< ingList.size(); i++){
+                    ingListFinal.add(Arrays.asList(ingList.get(i).split(" ", 0)));
+                }
+                List<String> dirList = Arrays.asList(newRecipeDirStr.split("\n\n",0));
+
+                System.out.println(newRecipeNameStr);
+                System.out.println(ingListFinal);
+                System.out.println(dirList);
+                Recipe newRecipe = new Recipe(newRecipeNameStr, ingListFinal, dirList);
+                try {
+                    recipeAOCSV.createRecipe(newRecipe);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    System.out.println("ERROR");
+                }
+
+            }
+        });
 
 
         // Delete Tab
