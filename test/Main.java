@@ -14,7 +14,7 @@ public class Main {
         Menu createRecipeMenu = new CreateRecipeMenu(recipeAOCSV);
         Menu deleteRecipeMenu = new DeleteRecipeMenu(recipeAOCSV);
 
-        System.out.println("Welcome to the Recipe Book, we're happy to have you! Please refer to the following options:");
+        System.out.println("Welcome to the Recipe Book! We're happy to have you :) ! Please refer to the following options:");
         System.out.println();
         System.out.println();
         System.out.println("At any time, please press 1, 2, 3, 4, 5.");
